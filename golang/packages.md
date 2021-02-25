@@ -1,0 +1,177 @@
+# standard library
+- archive
+  - tar     实现读取tar文档
+  - zip     zip包文件读取和写入
+- bufio     reader or writer 接口 ，提供文本IO缓冲
+- bytes     bytes函数集合，用于操作字符数组
+- compress
+  - bzip2   bzip2文档操作包
+  - flate   flate,实现`RFC 1951` 压缩数据格式
+  - gzip    gzip包文件读写操作，具体说明在 `RFC 1952`
+  - lzw     无损压缩算法，具体描述 `T. A. Welch, “A Technique for High-Performance Data Compression”, Computer, 17(6) (June 1984), pp 8-19`
+  - zlib    zlib算法，读写zlib文件，具体说明请读 `RFC 1950`
+- container
+  - heap    堆操作和定义堆接口
+  - list    双向链表
+  - ring    环表
+- context   包定义了上下文类型，该上下文类型跨越 API 边界和进程之间传递截止期限，取消信号和其他请求范围值
+- crypto    加密包集合
+  - aes
+  - cipher
+  - des
+  - dsa
+  - ecdsa
+  - ed25519
+  - elliptic
+  - hmac
+  - md5
+  - rand
+  - rc4
+  - rsa
+  - sha1
+  - sha256
+  - sha512
+  - subtle
+  - tls
+  - x509    X.509编码kes和其证书算法
+    - pkix  用于ASN.1解析和序列号X.509证书，CRL,OCSP
+- database
+  - sql
+    - driver
+- debug
+  - dwarf
+  - elf
+  - gosym
+  - macho
+  - pe
+  - plan9obj
+- encoding
+  - ascii85
+  - asn1
+  - base32
+  - base64
+  - binary
+  - csv
+  - gob
+  - hex
+  - json
+  - pem
+  - xml
+- erros
+- expvar    提供公共变量的标准的接口，例如服务器计数器
+- flag      命令行参数解析
+- fmt       输入输出格式化包，类似C的printf 和scanf
+- go 
+  - ast     定义类型，用于Go语法树解析
+  - build   构建采集信息GO 包
+  - constant描述为定义Go常量和其符合的操作
+  - doc     来自GO 语法树的源码文档摘要，
+  - format  标准Go源码实现的格式化包
+  - importer提供导出数据包的入口
+  - parser  解析go文件
+  - printer 打印语法树节点
+  - scanner 扫描go文件，目测用于词法和语法分析
+  - token   定义go语言词包
+  - type    类型数据结构定义，并提供类型检查算法
+- hash      提供哈希函数接口
+  - adler32 Adler-32校验和
+  - crc32   32位循环冗余检查 或者CRC-32校验和
+  - crc64   64位循环冗余检查 或者CRC-64校验和
+  - fnv     FNV-1和FNV-1a 非加密哈希， `Glenn Fowler, Landon Curt Noll, and Phong Vo.`创建
+  - maphash 字节序列哈希函数
+- html      (反)解析html文件
+  - template 模版生成，预防代码注入
+- image     2D图像库
+  - color   基础颜色库
+    - palette   标准色彩调色板
+  - draw    绘图
+  - gif     gif图解码与编码
+  - jpeg    jpeg图解码与编码
+  - png     png图解码与编码 
+- index
+  - suffixarray 使用内存前缀数字搜索子字符串
+- io        原始I/O操作
+  - ioutil  IO方法
+- log       简单日志包
+  - syslog  系统日志包服务
+- math      数学包
+  - big     高精位大数字算法
+  - bits    无符号整数类型位计算与操作函数
+  - cmplx   复数操作
+  - rand    伪随机算法
+- mime      MIME类型
+  - multipart   multipart请求数据解析，`RFC 2046`
+  - qutoedprintable quoted-printable编码，实现`RFC 2045`
+- net       可移植网络IO请求，包括TCP/IP UDP，域名协议，UNIX socket
+  - http    提供http客户端和服务端实现
+    - cgi   CGI -公共网关接口，`RFC 3875`
+    - cookiejar http CoookieJar ,内存中，符合`RFC 6265`
+    - fcgi  实现FastCGI 协议
+    - httptest  http 测试工具
+    - httptrace 追踪http客户端请求事件
+    - httputil  net/http工具类操作补充函数
+    - pprof     为pprof分析工具的提供http服务运行时的指标数据（内存，cpu等）
+  - mail    邮件操作包
+  - rpc     rpc包 通过网络或者其他IO暴露服务接口
+    - jsonrpc   JSON-RPC 1.0 
+  - smtp    实现`RFC 5321`的简单邮件传输协议
+  - textproto   用于HTTP,NNTP,SMTP的普通文本请求/响应协议
+  - url     URLs请求链接请求解析/序列化
+- os        可移植操作系统操作包
+  - exec    执行命令行指令（shell,dat,dos）
+  - signal  操作系统信号量
+  - user    通过登录名或UID查找用户账号
+- path      常规操作斜线分割路径工具包
+  - filepath    文件路径操作，兼容目标操作系统定义的文件路径
+- plugin    加载声明go 插件
+- reflect   运行时反射，断言操作对象
+- regexp    正则匹配
+  - syntax  解析/便携语法解析表达树
+- runtime   在GO运行系统中的操作方法，例如控制协程
+  - cgo     调用C
+  - debug   debug运行的程序工具
+  - msan
+  - pprof   性能分析工具
+  - race    data race detection logic
+  - trace   程序运行追踪工具
+- sort      切片和通用定义集合排序接口
+- strconv   基础数据相互转换字符串操作类
+- strings   utf-8编码字符串操作
+- sync      基础原始同步操作，例如锁
+  - atomic  底层原始原子内存操作
+- syscall   底层系统级别调用
+  - js      webassembly 技术
+- testing   自动测试
+  - iotest  读写性能测试
+  - quick   黑盒测试工具集
+- text
+  - scanner 扫描和校验UTF-8编码文本
+  - tabwriter   文本按制表符对齐输出
+  - template数据模版文件输出
+    - parse 为定义好的的文本/html模版生成解析树
+- time      时间计量，展示
+  - tzdata  嵌入的零时区数据库
+- unicode   Unicode 编码数据编码函数和测试
+  - utf16   UTF-16序列解析与编码
+  - utf8    UTF-8序列解析与编码
+- unsafe    非安全指针库，用于转化类型，与utrper进行指针操作
+
+# 其他库
+- benchmarks go 开发时基准测试库
+- blog      blog.golang.org 博客
+- bulid     build.golang.org
+- crypto    额外加密包
+- debug     实验性的debug
+- image     额外image包
+- mobile    实验性的手机平台
+- net       额外net包
+- perf      性能测试，存储，分析
+- pkgsite   pkg.go.dev 网站genmul
+- review    代码review工具，基于Gerrit code reviews
+- sync      additional concurrency primitives.
+- sys       系统调用
+- text      文本操作
+- time      额外time包
+- tools     godoc,goimports,gorename,等其他开发工具
+- tour      tour.golang.org
+- exp       谨慎使用包，许多未有经过的变更

@@ -1,0 +1,18 @@
+Notably absent from the list are slices, maps, and functions; these types cannot be compared using ==, and may not be used as map keys
+- 数据结构
+  - hash table（go）
+    - $o(N),o(1)$
+    - 开销在哈希和数组/链表查找
+    - 碰撞
+      - 不同key 哈希值一样
+      - 解决方案
+        - 链表法
+        - 开放地址法
+          - 通过一定规律，在数组后面挑选空位，放置新key
+  - 搜索树（其他）
+    - 自平衡搜索树
+      - AVL
+      - 红黑树
+      - $\large{o(\log{N})}$
+- map 类型类似
+  - map[keyType]ValueType
