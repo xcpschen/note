@@ -225,4 +225,20 @@ StorageClass 一旦被创建出来，将无法修改。如 需更改，则只能
         type: fast 
         availability: nova
       ```
-3. 
+### 设置默认的StoreageClass
+需要启用名为“ DefaultStorageClass”的 admission controller，即在 kube-apiserver 的命令行参数--admission-control 中增加:
+`--admission-control= . . . , DefaultStorageClass`,然后，在StoreageClass的定义中设置一个annotation：
+```
+kind: StorageClass
+apiVersion: storage.k8s.io/v1 
+metadata:
+  name: gold 
+  annotations:
+    storageclass.beta.kubernetes.io/is-default-class="true"
+provisioner : kubernetes.io/gce-pd 
+parameters:
+  type : pd-ssd
+```
+
+## CSI存储机制详解
+从1.9版本开始引入容器存储接口Container Storage Interface（CSI）机制，用于在Kubernetes和外部存储系统之间建立一套标准的存储管理接口，通过该接口为容器提供存储服务。解耦k8s核心组件，存储插件的开发由提供方自行维护。也称作out-of-tree机制。
