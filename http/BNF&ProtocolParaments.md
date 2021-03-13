@@ -484,7 +484,7 @@ the CONNECT method for use with a proxy that can dynamically switch to being a t
 #### 200 Ok
 #### 201 Created
 #### 202 Accepted
-#### 203 Non-Authoritative Information
+#### 203 Non-Authorizative Information
 #### 204 No Content
 #### 205 Reset Content
 #### 206 Pratial Content
@@ -507,7 +507,7 @@ the CONNECT method for use with a proxy that can dynamically switch to being a t
 #### 404 Not Found
 #### 405 Method Not Allowd
 #### 406 Not Acceptable
-#### 407 Proxy Authentication Required
+#### 407 Proxy Authorization Required
 #### 408 Request Timeout
 #### 409 Conflict
 #### 410 Gone
