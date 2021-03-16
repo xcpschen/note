@@ -60,14 +60,14 @@ void sort(int[] nums, int lo, int hi) {
 排序好两段子数组，再合并
 ```
 void sort(int[] nums, int lo, int hi) {
-int mid = (lo + hi) / 2;
-sort(nums, lo, mid);
-sort(nums, mid + 1, hi);
+  int mid = (lo + hi) / 2;
+  sort(nums, lo, mid);
+  sort(nums, mid + 1, hi);
 
-/****** 后序遍历位置 ******/
-// 合并两个排好序的子数组
-merge(nums, lo, mid, hi);
-/************************/
+  /****** 后序遍历位置 ******/
+  // 合并两个排好序的子数组
+  merge(nums, lo, mid, hi);
+  /************************/
 }
 ```
 ### 计算一棵二叉树共有几个节点
@@ -107,7 +107,7 @@ TreeNode invertTree(TreeNode root) {
 }
 ```
 
-### 填充二叉树节点的右侧指针-前序遍历
+### 填充二叉树节点的右侧指针-左右子树，前序遍历
 二叉树定义如下：
 ```
 struct Node{
@@ -236,10 +236,8 @@ TreeNode build(int[] nums, int lo, int hi) {
 - 中序遍历顺序`左，根，右`，一定是以`根`为界限，左边为左树输出，右边为右树输出
 - 后序遍历顺序`左，右，根`,最后一个元素一定是`根`
 - 利用中序左边部分长度，算出让前/后序遍历数组左/右树的范围
-- 前，中序构建顺序:
+- 构建顺序:
   - 先确定根，依次递归生成，左树，右树
-- 后，中序构建顺序：
-  - 先根，然后右树，左树
 
 #### 通过前序和中序遍历结果构造二叉树
 - 前序遍历 preorder = [3,9,20,15,7]
@@ -484,7 +482,7 @@ String traverse(TreeNode root) {
 - 普通的二叉树，只能向下遍历加一获取,时间复杂度为 $\large{O}(N)$
 - 满二叉树，只需要算出高度，然后利用$2^h-1$ 可以得出节点数。时间复杂度为 $\large{O}(\normalsize{logN})$
 - 完全二叉树：可以看成满二叉树+普通二叉树的结合。最坏时间复杂度为 $\large{O}(\normalsize{logN}*\normalsize{logN})$
-  - 完全二叉树高度为 $\log_2{x}+1$, 所以递归深度等于树的高度 $\large{O}(logN)$
+  - 完全二叉树高度为 $\log_2{x}+1$, 所以递归深度等于树的高度需要时间复杂度为 $\large{O}(logN)$
   - 每次递归主要花费在while循环，其时间复杂度为 $\large{O}(\normalsize{logN})$
 
 ```
@@ -531,8 +529,130 @@ public int countNodes(TreeNode root) {
 ### 寻找第K小的元素 - 二叉搜索树
 
 ### BST转化累加树
+BST原先的值变成原来中大于火等于的值之和
+- BST的特点，最右边的值最大，最左边的值最小，中间平衡 转成累加树后，最大值一定在最左边，中间小于等于左边，最小右边
+- BST 中序遍历得到数据顺序是有序
+  - 先左后右得到升序数据
+  - 先右后左得到降序数据
+算法：
+```
+TreeNode convertBST(TreeNode root) {
+    traverse(root);
+    return root;
+}
+int sum = 0
+void traverse(TreeNode root){
+    if (root==null){
+        return;
+    }
+    traverse(root.right);
+    sum +=root.val;
+    root.val=sum;
+    traverse(root.left);
+}
+```
 
+### 判断 BST 的合法性
+- 利用BST特性，左边<=当前>=右边
+  ```
+    boolean isValidBST(TreeNode root) {
+        return isValidBST(root, null, null);
+    }
 
+    /* 限定以 root 为根的子树节点必须满足 max.val > root.val > min.val */
+    boolean isValidBST(TreeNode root, TreeNode min, TreeNode max) {
+        // base case
+        if (root == null) return true;
+        // 若 root.val 不符合 max 和 min 的限制，说明不是合法 BST
+        if (min != null && root.val <= min.val) return false;
+        if (max != null && root.val >= max.val) return false;
+        // 限定左子树的最大值是 root.val，右子树的最小值是 root.val
+        return isValidBST(root.left, min, root) 
+            && isValidBST(root.right, root, max);
+    }
+  ```
+### BST 增，删，查
+- 查，前序遍历，利用二分特性
+  ```
+  void BST(TreeNode root, int target) {
+    if (root.val == target)
+        // 找到目标，做点什么
+    if (root.val < target) 
+        BST(root.right, target);
+    if (root.val > target)
+        BST(root.left, target);
+  }
+  ```
+- 增，利用「查」算法，添加上
+  ```
+    TreeNode insertIntoBST(TreeNode root, int val) {
+        // 找到空位置插入新节点
+        if (root == null) return new TreeNode(val);
+        // if (root.val == val)
+        //     BST 中一般不会插入已存在元素
+        if (root.val < val) 
+            root.right = insertIntoBST(root.right, val);
+        if (root.val > val) 
+            root.left = insertIntoBST(root.left, val);
+        return root;
+    }
+  ```
+- 删，先「找」，再「改」，删除，但必须维持BST特性：
+  - 删除节点是末端节点，直接删除
+  - 删除节点拥有一个子节点，删除，子节点放在现在的位置
+  - 删除节点拥有两个子节点，须先找到其左子树最大值或者右子树最小值来替代自己
+  ```
+    TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) return null;
+        if (root.val == key) {
+            // 这两个 if 把情况 1 和 2 都正确处理了
+            if (root.left == null) return root.right;
+            if (root.right == null) return root.left;
+            // 处理情况 3
+            TreeNode minNode = getMin(root.right);
+            root.val = minNode.val;
+            root.right = deleteNode(root.right, minNode.val);
+        } else if (root.val > key) {
+            root.left = deleteNode(root.left, key);
+        } else if (root.val < key) {
+            root.right = deleteNode(root.right, key);
+        }
+        return root;
+    }
+
+    TreeNode getMin(TreeNode node) {
+        // BST 最左边的就是最小的
+        while (node.left != null) node = node.left;
+        return node;
+    } 
+  ```
+### 二叉树的最近公共祖先（LCA） - 后序
+Lowest Common Ancestor，简称 LCA
+给定一个二叉树，提供两个节点，查找其公共祖先：
+- 两个节点的公共祖先是根，即为左右树，则放回root
+- 两个节点都不在根节点，返回null
+- 可能是两个节点其中一个,返回确定那个
+  
+```
+TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    // base case
+    if (root == null) return null;
+    if (root == p || root == q) return root;
+
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
+    // 情况 1
+    if (left != null && right != null) {
+        return root;
+    }
+    // 情况 2
+    if (left == null && right == null) {
+        return null;
+    }
+    // 情况 3
+    return left == null ? right : left;
+}
+```
 
 ## 来源
 - [百度百科二叉树](https://baike.baidu.com/item/%E4%BA%8C%E5%8F%89%E6%A0%91/1602879?fr=aladdin)
