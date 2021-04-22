@@ -1,4 +1,4 @@
-# 回溯算法BFS
+# 回溯算法DFS
 回溯实际就是一个决策树的遍历，需要考虑：
 - 路径：做出选择的
 - 选择列表：当前可以做选择的
@@ -200,17 +200,18 @@ func permute(nums []int) [][]int{
     backtrack(nums,0,track)
     return res
 }
-func backtrack(nums []int,start int, track []int){
+func backtrack(nums []int, track []int){
     if len(tack)==len(nums){
         res = append(res,track)
         return
     }
-    for i:=start;i<len(nums);i++{
+    for i:=0;i<len(nums);i++{
         if inArr(nums[i],track){
-            track = append(track,nums[i])
             continue
         }
-        backtrack(nums,i+1,track)
+
+        track = append(track,nums[i])
+        backtrack(nums,track)
         l:=len(track)
         track = track[0:l]
     }
@@ -313,7 +314,7 @@ vector<string> generateParenthesis(int n){
     backtrack(n,n,track);
     return res;
 }
-void backtrack(int left,int right,string& track){
+void backtrack(int left,int right,string& track string){
     if (right < left|| left<0||right<0) return;
     if (left == 0 && right == 0) {
         res.push_back(track);
