@@ -80,7 +80,7 @@ Kubemetes vl.6 版本开始，以下存储类型支 持设置挂载参数:
 - QuobyteVolumes.
 - VMware Photon。
 ## PVC
-PVC 作为用户对存储资源的需求申请，主要包括存储空间请求、访问模式、 PV 选择条件和存储类别等信息的设置.
+PVC 作为用户对存储资源的需求申请，主要包括 `存储空间请求、访问模式、 PV 选择条件和存储类别`等信息的设置.
 例子申请 8Gi 存储空间，访问模 式为“ReadWriteOnce飞 PV选择条件为包含标签“release=stable”并且包含条件为“environment In [dev]”的标签，存储类别为“ slow”：
 ```
 kind: PersistentVolumeClaim 

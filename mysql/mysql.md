@@ -124,14 +124,14 @@ MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，
     - 异步刷新缓冲池数据
     - 合并插入缓冲
     - undo页回收
-- IO Thread
-  - 处理AIO请求回调
-  - 4个read thread
-  - 4 个 write thread
-  - insert buffer
-  - log Iog thread
-- Purge Thread
-  - 回收undo页
+  - IO Thread
+    - 处理AIO请求回调
+    - 4个read thread
+    - 4 个 write thread
+    - insert buffer
+    - log Iog thread
+  - Purge Thread
+    - 回收undo页
 - 缓冲池
 	  
  ```
@@ -158,10 +158,10 @@ MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，
 #### 索引
 - B+树索引
 - 哈希索引
-- 哈希链表解决冲突
-- 哈希函数
-  - 除法散列
-- 自适应
+  - 哈希链表解决冲突
+  - 哈希函数
+    - 除法散列
+- 自适应hash
 - 全文索引
 
 
